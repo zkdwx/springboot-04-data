@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/static/css/layui.css}"/>
+    <script th:src="@{/static/layui.js}"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class="layui-table">
+    <colgroup>
+        <col width="150">
+        <col width="200">
+        <col>
+    </colgroup>
+    <thead>
+    <tr>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>性别</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user:${userList}">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getGender()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td>
+            <a class="layui-btn layui-btn-sm layui-bg-green" th:href="@{/updateUser/}+${user.getId()}">更新</a>
+            <a class="layui-btn layui-btn-sm layui-btn-danger" th:href="@{/deleteUser/}+${user.getId()}">删除</a>
+        </td>
+    </tr>
+    <a th:href="@{/toAdd}" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal">添加</a>
+    </tbody>
+</table>
+
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
